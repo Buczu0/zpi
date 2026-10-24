@@ -1,0 +1,17 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/ClientApp/dist/
+**/wwwroot/
+**/TestResults/
+.vs/
+.vscode/
+*.user
+*.suo
+*.mdf
+*.ldf
+.env
+.env.*
+!.env.example
+artifacts/
+tmp/

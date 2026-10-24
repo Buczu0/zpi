@@ -1,0 +1,40 @@
+:root { font-family: "Segoe UI", system-ui, sans-serif; color: #173c32; background: #f6f5f0; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.page { max-width: 1280px; min-height: 100svh; padding: 0 64px; margin: auto; display: flex; flex-direction: column; }
+.header { display: flex; justify-content: space-between; align-items: center; padding: 36px 0; border-bottom: 1px solid #d8ddd3; }
+.brand { display: flex; align-items: center; color: inherit; text-decoration: none; font-size: 25px; font-weight: 750; letter-spacing: -1px; }
+.brand svg { width: 33px; height: 33px; margin-right: 10px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.brand-dot { color: #c97844; }
+.label { font-size: 13px; letter-spacing: .04em; color: #56675c; }
+main { flex: 1; display: grid; align-items: center; padding: 76px 0; }
+.welcome { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+.eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: 12px; font-weight: 650; margin: 0 0 24px; }
+h1 { font-size: clamp(44px, 5.5vw, 76px); line-height: 1.08; letter-spacing: -.055em; font-weight: 650; margin: 0 0 28px; }
+.description { max-width: 430px; color: #596b60; font-size: 18px; line-height: 1.7; margin: 0; }
+.notice { display: flex; align-items: center; gap: 10px; margin-top: 34px; }
+.notice p { font-size: 13px; color: #596b60; margin: 0; }
+.status-dot { flex-shrink: 0; width: 7px; height: 7px; background: #c97844; border-radius: 100%; }
+.illustration { height: 400px; position: relative; }
+.circle { position: absolute; width: 320px; height: 320px; border-radius: 50%; background: #e5e9dc; left: 50%; top: 10px; transform: translateX(-50%); }
+.package { position: absolute; border-radius: 6px; box-shadow: 8px 20px 30px #16382c10; }
+.package-back { height: 185px; width: 145px; top: 70px; left: 40%; background: #d6b38d; transform: rotate(12deg); }
+.package-front { height: 170px; width: 210px; left: 12%; top: 160px; background: #b8855e; transform: rotate(-6deg); }
+.package span { display: block; position: absolute; background: #ead8bb; opacity: .7; width: 35px; height: 100%; left: 50%; transform: translateX(-50%); }
+.package-front i { position: absolute; bottom: 18px; right: 20px; font-size: 30px; font-style: normal; color: #62482f; font-weight: 750; }
+.leaf { position: absolute; width: 65px; height: 30px; background: #64826a; border-radius: 100% 0 100% 0; right: 0; bottom: 115px; transform: rotate(-25deg); }
+.leaf-two { width: 48px; right: 22px; bottom: 143px; transform: rotate(25deg); background: #90a387; }
+.illustration-caption { position: absolute; bottom: 8px; width: 100%; text-align: center; font-size: 12px; letter-spacing: .06em; color: #596b60; }
+footer { border-top: 1px solid #d8ddd3; display: flex; justify-content: space-between; padding: 24px 0; font-size: 12px; color: #596b60; gap: 20px; }
+a:focus-visible { outline: 3px solid #c97844; outline-offset: 6px; border-radius: 3px; }
+@media (max-width: 760px) {
+  .page { padding: 0 24px; }
+  .header { padding: 24px 0; }
+  main { padding: 48px 0; }
+  .welcome { grid-template-columns: 1fr; gap: 24px; }
+  .illustration { max-width: 360px; width: 100%; height: 350px; margin: auto; }
+  .circle { width: 275px; height: 275px; }
+  .package-back { top: 40px; }
+  .package-front { top: 120px; }
+  footer { flex-direction: column; gap: 8px; }
+}
