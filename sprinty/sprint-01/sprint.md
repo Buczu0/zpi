@@ -7,10 +7,10 @@
 | Sprint | `sprint-01` |
 | Data rozpoczęcia analizy | 2026-10-24, strefa `Europe/Warsaw` |
 | Etap | `RECENZJA` |
-| Aktywna rola | Recenzent — oddanie zweryfikowanej K2 |
-| Następne działanie | Commit, push do origin/main i potwierdzenie zdalnej referencji. |
+| Aktywna rola | Recenzent — publikacja zablokowana uwierzytelnianiem GitHub |
+| Następne działanie | Lider kończy logowanie GitHub; następnie ponowienie push i potwierdzenie zdalnej referencji. |
 | Wersja user stories | `US1` — zaakceptowana 2026-10-24 |
-| Wersja kodu | `K2` — zaakceptowana 2026-10-24, trwa ponowna recenzja |
+| Wersja kodu | `K2` — zaakceptowana i zweryfikowana; commit kodu `4995dc234ce0567360445e9c524691f5d34a8c48`, publikacja zablokowana |
 | Źródło wymagań | `wymagania funkcjonalne/sprint-01/ZPI_N_Lab1.pdf`, 21 stron |
 | SHA-256 źródła | `aa930d99d17cd202d1935c2cbba9b491f04788dba6e75d7114a47575942ef761` |
 | Stan wejściowy kodu | Brak aplikacji; repozytorium zawiera instrukcje agentów i PDF. Commit wejściowy: `71488d1`. |
@@ -293,7 +293,7 @@ Uzgodnienie: zapis adresu wymaga istniejącego właściciela wskazanego zgodnie 
 
 ## Otwarte pytania i blokady
 
-Brak.
+Publikacja K2 do `origin/main` jest zablokowana uwierzytelnianiem GitHub. `git push origin main` zwrócił „Invalid username or token” i „Authentication failed”. Lider został poproszony o zalogowanie przez `git credential-manager github login --browser` kontem z prawem zapisu do `Buczu0/zpi`, bez przekazywania sekretów w rozmowie. Po potwierdzeniu logowania recenzent ponowi push i sprawdzi zdalną referencję. Kod oraz testy są gotowe; nie ma otwartych usterek aplikacji.
 
 ## Implementacja — K1
 
@@ -620,7 +620,7 @@ Własna kompilacja `dotnet build WebStore.sln --no-restore` z klientem React zak
 
 ### Kryteria K2
 
-**53 SPEŁNIONE; trzy kryteria publikacji oczekują na zakończenie oddania.** Wszystkie kryteria aplikacji i kompletności lokalnej dostawy są potwierdzone. Wynik końcowy sprintu zostanie nadany dopiero po potwierdzeniu publikacji.
+**54 SPEŁNIONE; 2 NIEZWERYFIKOWANE. Wynik ponownej recenzji: WERYFIKACJA_ZABLOKOWANA.** Kryteria aplikacji są spełnione, obie usterki zamknięte. Uwierzytelnianie blokuje publikację i potwierdzenie zdalnej dostawy; sprint pozostaje w etapie RECENZJA.
 
 | Kryterium | Wynik dla K2 | Dowód i rzeczywisty wynik |
 | --- | --- | --- |
@@ -677,10 +677,16 @@ Własna kompilacja `dotnet build WebStore.sln --no-restore` z klientem React zak
 | S01-US-012-KA-05 | SPEŁNIONE | Własne pełne przebiegi obejmują 6 testów SQL; osobny filtr FullyQualifiedName~Reused_context: 2/2. |
 | S01-US-012-KA-06 | SPEŁNIONE | Niniejszy raport wiąże wyniki ponownej recenzji oraz sprawdzenie interfejsu z zaakceptowaną K2. |
 | S01-US-013-KA-01 | SPEŁNIONE | Manifest K2 80/80 zgodny; komplet plików na main, bez sekretów, zależności i wyników kompilacji w dostawie. |
-| S01-US-013-KA-02 | NIEZWERYFIKOWANE | Kryteria aplikacji potwierdzone; commit i push przygotowywane. |
-| S01-US-013-KA-03 | NIEZWERYFIKOWANE | Oczekuje na weryfikację zdalnej referencji po publikacji. |
-| S01-US-013-KA-04 | NIEZWERYFIKOWANE | Odczyt origin/main wskazuje bazowy commit 71488d19b9570031dfc08c1b54eb79ba4b4bfb88; kontrola końcowa nastąpi po push. |
+| S01-US-013-KA-02 | NIEZWERYFIKOWANE | Commit kodu 4995dc234ce0567360445e9c524691f5d34a8c48 utworzony; GitHub odrzucił push z powodu uwierzytelniania. |
+| S01-US-013-KA-03 | NIEZWERYFIKOWANE | Po próbie push zdalna main nadal wskazuje 71488d19b9570031dfc08c1b54eb79ba4b4bfb88; dostawy K2 na niej brak. |
+| S01-US-013-KA-04 | SPEŁNIONE | Brak nowych zmian do integracji; niepowodzenie publikacji zgłoszono jako blokadę. Nie użyto force push ani nie zmieniano kodu przy oddaniu. |
 
 ### Oddanie do GitHub
 
-Repozytorium docelowe: `https://github.com/Buczu0/zpi.git`, gałąź `main`. Odczyt zdalnej referencji przed publikacją wskazał `71488d19b9570031dfc08c1b54eb79ba4b4bfb88`, zgodny z lokalną bazą dostawy; brak zmian do integracji. Publikacja nastąpi bez force push. Zestaw dostawy obejmuje zaakceptowane pliki K2 oraz dokument sprintu i dowód sprawdzenia interfejsu.
+Repozytorium docelowe: `https://github.com/Buczu0/zpi.git`, gałąź `main`. Odczyt zdalnej referencji przed publikacją wskazał `71488d19b9570031dfc08c1b54eb79ba4b4bfb88`, zgodny z lokalną bazą dostawy; brak zmian do integracji. Zestaw dostawy obejmuje zaakceptowane pliki K2 oraz dokument sprintu i dowód sprawdzenia interfejsu.
+
+Utworzono commit kodu **`4995dc234ce0567360445e9c524691f5d34a8c48`** („Dostarcz sprint-01 K2: fundament WebStore i testy”). Przed commitem potwierdzono bajtową zgodność wszystkich 80 plików K2 w indeksie Git oraz dokładnie 82 ścieżki dostawy z raportem i zrzutem. Jednorazowe `core.autocrlf=false` przy dodawaniu zachowało zaakceptowane końce linii; nie zmieniono konfiguracji repozytorium. Kontrola `git -c core.whitespace=cr-at-eol diff --cached --check` zakończyła się sukcesem.
+
+Próba `git push origin main` zakończyła się błędem uwierzytelniania: „Invalid username or token”, „Password authentication is not supported for Git operations”, „Authentication failed”. Nie użyto force push. Następujący po niej `git ls-remote origin refs/heads/main` potwierdził niezmienioną zdalną referencję `71488d19b9570031dfc08c1b54eb79ba4b4bfb88`. GitHub CLI nie jest zainstalowane, a odczyt listy kont Git Credential Manager poza piaskownicą nie zwrócił aktywnego konta. Lider otrzymał instrukcję dokończenia logowania; tokenów ani haseł nie odczytywano i nie żądano w rozmowie.
+
+Pozostało ponowić publikację po logowaniu i potwierdzić obecność dostawy w GitHub. Ostatnie aktualizacje raportu są metadanymi procesu i nie zmieniają K2 ani jej akceptacji.
